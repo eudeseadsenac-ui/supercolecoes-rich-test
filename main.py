@@ -85,6 +85,7 @@ def menu_superman():
         ]
     }
 
+
 def menu_superman_abril():
     return {
         "blocks": [
@@ -120,6 +121,8 @@ def menu_superman_abril():
             }
         ]
     }
+
+
 def enviar_rich_message(chat_id):
     payload = {
         "chat_id": chat_id,
@@ -197,8 +200,7 @@ def main():
                         chat_id = mensagem_callback["chat"]["id"]
                         message_id = mensagem_callback["message_id"]
 
-                                                
-                    if dados == "superman":
+                        if dados == "superman":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
