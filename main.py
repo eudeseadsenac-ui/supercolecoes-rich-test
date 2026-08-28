@@ -85,7 +85,41 @@ def menu_superman():
         ]
     }
 
-
+def menu_superman_abril():
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": "🦸 SUPERMAN — ABRIL",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma coleção:"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "Super-Homem",
+                        "callback_data": "super_homem",
+                        "style": "primary"
+                    }
+                ],
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "⬅️ Voltar",
+                        "callback_data": "voltar_superman"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
 def enviar_rich_message(chat_id):
     payload = {
         "chat_id": chat_id,
@@ -163,7 +197,22 @@ def main():
                         chat_id = mensagem_callback["chat"]["id"]
                         message_id = mensagem_callback["message_id"]
 
-                        if dados == "superman":
+                                                
+                    if dados == "superman":
+                            editar_rich_message(
+                                chat_id,
+                                message_id,
+                                menu_superman()
+                            )
+
+                        elif dados == "superman_abril":
+                            editar_rich_message(
+                                chat_id,
+                                message_id,
+                                menu_superman_abril()
+                            )
+
+                        elif dados == "voltar_superman":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
