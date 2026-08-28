@@ -122,7 +122,49 @@ def menu_superman_abril():
         ]
     }
 
-
+def menu_super_homem():
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": "🦸 SUPER-HOMEM — ABRIL",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma edição:"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "1",
+                        "callback_data": "super_homem_1",
+                        "style": "primary"
+                    },
+                    {
+                        "text": "2",
+                        "callback_data": "super_homem_2"
+                    },
+                    {
+                        "text": "3",
+                        "callback_data": "super_homem_3"
+                    }
+                ],
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "⬅️ Voltar",
+                        "callback_data": "voltar_abril"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
 def enviar_rich_message(chat_id):
     payload = {
         "chat_id": chat_id,
@@ -208,6 +250,20 @@ def main():
                             )
 
                         elif dados == "superman_abril":
+                            editar_rich_message(
+                                chat_id,
+                                message_id,
+                                menu_superman_abril()
+                            )
+
+                        elif dados == "super_homem":
+                            editar_rich_message(
+                                chat_id,
+                                message_id,
+                                menu_super_homem()
+                            )
+
+                        elif dados == "voltar_abril":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
