@@ -228,7 +228,20 @@ def main():
                 if mensagem and mensagem.get("text") == "/teste":
                     chat_id = mensagem["chat"]["id"]
                     enviar_rich_message(chat_id)
+                channel_post = update.get("channel_post")
 
+                if channel_post:
+                    documento = channel_post.get("document")
+
+                    if documento:
+                        file_id = documento.get("file_id")
+                        nome_arquivo = documento.get("file_name")
+                        legenda = channel_post.get("caption", "")
+
+                        print("NOVO ARQUIVO DETECTADO")
+                        print("Arquivo:", nome_arquivo)
+                        print("Legenda:", legenda)
+                        print("FILE_ID:", file_id)
                 callback = update.get("callback_query")
 
                 if callback:
