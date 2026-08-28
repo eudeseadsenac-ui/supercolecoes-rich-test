@@ -4,7 +4,7 @@ import requests
 
 TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-
+arquivos = {}
 
 def menu_principal():
     return {
@@ -195,7 +195,15 @@ def editar_rich_message(chat_id, message_id, rich_message):
 
     print(resposta.text)
 
-
+def enviar_documento(chat_id, file_id):
+    requests.post(
+        f"{BASE_URL}/sendDocument",
+        json={
+            "chat_id": chat_id,
+            "document": file_id
+        },
+        timeout=30
+    )
 def responder_callback(callback_query_id):
     requests.post(
         f"{BASE_URL}/answerCallbackQuery",
@@ -242,6 +250,14 @@ def main():
                         print("Arquivo:", nome_arquivo)
                         print("Legenda:", legenda)
                         print("FILE_ID:", file_id)
+                        partes = [p.strip() for p in legenda.split("|")]
+
+                        if len(partes) == 4:
+                            personagem, editora, colecao, edicao = partes
+                            chave = f"{personagem}|{editora}|{colecao}|{edicao}"
+                            arquivos[chave] = file_id
+
+                            print("CATALOGADO:", chave)
                 callback = update.get("callback_query")
 
                 if callback:
