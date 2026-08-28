@@ -6,41 +6,90 @@ TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
 
 
+def menu_principal():
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": "📚 SUPERCOLEÇÕES",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma coleção:"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "Superman",
+                        "callback_data": "superman",
+                        "style": "primary"
+                    },
+                    {
+                        "text": "Batman",
+                        "callback_data": "batman"
+                    },
+                    {
+                        "text": "He-Man",
+                        "callback_data": "heman"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
+
+
+def menu_superman():
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": "🦸 SUPERMAN",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma editora:"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "Abril",
+                        "callback_data": "superman_abril",
+                        "style": "primary"
+                    },
+                    {
+                        "text": "Panini",
+                        "callback_data": "superman_panini"
+                    },
+                    {
+                        "text": "EBAL",
+                        "callback_data": "superman_ebal"
+                    }
+                ],
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "⬅️ Voltar",
+                        "callback_data": "voltar"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
+
+
 def enviar_rich_message(chat_id):
     payload = {
         "chat_id": chat_id,
-        "rich_message": {
-            "blocks": [
-                {
-                    "type": "heading",
-                    "text": "📚 SUPERCOLEÇÕES",
-                    "size": 2
-                },
-                {
-                    "type": "paragraph",
-                    "text": "Escolha uma coleção:"
-                },
-                {
-                    "type": "buttons",
-                    "buttons": [
-                        {
-                            "text": "Superman",
-                            "callback_data": "superman",
-                            "style": "primary"
-                        },
-                        {
-                            "text": "Batman",
-                            "callback_data": "batman"
-                        },
-                        {
-                            "text": "He-Man",
-                            "callback_data": "heman"
-                        }
-                    ],
-                    "align": "center"
-                }
-            ]
-        }
+        "rich_message": menu_principal()
     }
 
     resposta = requests.post(
@@ -52,30 +101,20 @@ def enviar_rich_message(chat_id):
     print(resposta.text)
 
 
-def main():
-    offset = 0
+def editar_rich_message(chat_id, message_id, rich_message):
+    payload = {
+        "chat_id": chat_id,
+        "message_id": message_id,
+        "rich_message": rich_message
+    }
 
-    while True:
-        resposta = requests.get(
-            f"{BASE_URL}/getUpdates",
-            params={
-                "offset": offset,
-                "timeout": 30
-            },
-            timeout=35
-        ).json()
+    resposta = requests.post(
+        f"{BASE_URL}/editMessageText",
+        json=payload,
+        timeout=30
+    )
 
-        for update in resposta.get("result", []):
-            offset = update["update_id"] + 1
-
-            mensagem = update.get("message")
-
-            if mensagem and mensagem.get("text") == "/teste":
-                chat_id = mensagem["chat"]["id"]
-                enviar_rich_message(chat_id)
-
-        time.sleep(1)
+    print(resposta.text)
 
 
-if __name__ == "__main__":
-    main()
+def
