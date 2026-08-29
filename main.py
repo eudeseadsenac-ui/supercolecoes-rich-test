@@ -253,7 +253,7 @@ def menu_colecoes(personagem, editora):
 
 
 
-    }
+    
 def menu_edicoes(personagem, editora, colecao):
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
