@@ -383,7 +383,78 @@ def menu_superman_abril():
             }
         ]
     }
+def menu_edicoes(personagem, editora, colecao):
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
+    params = {
+        "personagem": f"eq.{personagem}",
+        "editora": f"eq.{editora}",
+        "colecao": f"eq.{colecao}",
+        "select": "edicao"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    edicoes = []
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        for item in dados:
+            edicao = str(item["edicao"])
+
+            if edicao not in edicoes:
+                edicoes.append(edicao)
+
+    def ordem_edicao(valor):
+        try:
+            return (0, int(valor))
+        except ValueError:
+            return (1, valor)
+
+    edicoes.sort(key=ordem_edicao)
+
+    botoes = []
+
+    for edicao in edicoes:
+        botoes.append({
+            "text": edicao,
+            "callback_data": f"edicao|{personagem}|{editora}|{colecao}|{edicao}"
+        })
+
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": f"📚 {colecao.upper()} — {editora.upper()}",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma edição:"
+            },
+            {
+                "type": "buttons",
+                "buttons": botoes,
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "⬅️ Voltar",
+                        "callback_data": f"editora|{personagem}|{editora}"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
 def menu_super_homem():
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
@@ -573,6 +644,7 @@ def main():
 
                         if dados.startswith("personagem|"): personagem = dados.split("|", 1)[1]; editar_rich_message(chat_id, message_id, menu_editoras(personagem))
                         elif dados.startswith("editora|"): _, personagem, editora = dados.split("|", 2); editar_rich_message(chat_id, message_id, menu_colecoes(personagem, editora))
+                        elif dados.startswith("colecao|"): _, personagem, editora, colecao = dados.split("|", 3); editar_rich_message(chat_id, message_id, menu_edicoes(personagem, editora, colecao))
                         elif dados == "superman": editar_rich_message(chat_id, message_id, menu_superman())
 
                         elif dados == "superman_abril":
