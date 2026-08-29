@@ -248,72 +248,8 @@ def menu_colecoes(personagem, editora):
             }
         ]
     }
-def menu_superman():
-    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
-    params = {
-        "personagem": "eq.Super-Homem",
-        "select": "editora"
-    }
 
-    resposta = requests.get(
-        url,
-        headers=SUPABASE_HEADERS,
-        params=params,
-        timeout=30
-    )
-
-    editoras = []
-
-    if resposta.ok:
-        dados = resposta.json()
-
-        for item in dados:
-            editora = str(item["editora"])
-
-            if editora not in editoras:
-                editoras.append(editora)
-
-    editoras.sort()
-
-    botoes = []
-
-    for editora in editoras:
-        callback = editora.lower().replace(" ", "_")
-
-        botoes.append({
-            "text": editora,
-            "callback_data": f"superman_{callback}"
-        })
-
-    return {
-        "blocks": [
-            {
-                "type": "heading",
-                "text": "🦸 SUPERMAN",
-                "size": 2
-            },
-            {
-                "type": "paragraph",
-                "text": "Escolha uma editora:"
-            },
-            {
-                "type": "buttons",
-                "buttons": botoes,
-                "align": "center"
-            },
-            {
-                "type": "buttons",
-                "buttons": [
-                    {
-                        "text": "⬅️ Voltar",
-                        "callback_data": "voltar"
-                    }
-                ],
-                "align": "center"
-            }
-        ]
-    }
 
 
 def menu_superman_abril():
