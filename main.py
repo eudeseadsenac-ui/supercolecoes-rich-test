@@ -180,6 +180,49 @@ def menu_superman_abril():
     }
 
 def menu_super_homem():
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
+
+    params = {
+        "personagem": "eq.Super-Homem",
+        "editora": "eq.Abril",
+        "colecao": "eq.Super-Homem",
+        "select": "edicao"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    edicoes = []
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        for item in dados:
+            edicao = str(item["edicao"])
+
+            if edicao not in edicoes:
+                edicoes.append(edicao)
+
+    def ordem_edicao(valor):
+        try:
+            return (0, int(valor))
+        except ValueError:
+            return (1, valor)
+
+    edicoes.sort(key=ordem_edicao)
+
+    botoes = []
+
+    for edicao in edicoes:
+        botoes.append({
+            "text": edicao,
+            "callback_data": f"super_homem_{edicao}"
+        })
+
     return {
         "blocks": [
             {
@@ -192,16 +235,10 @@ def menu_super_homem():
                 "text": "Escolha uma edição:"
             },
             {
-    "type": "buttons",
-    "buttons": [
-        {
-            "text": "14",
-            "callback_data": "super_homem_14",
-            "style": "primary"
-        }
-    ],
-    "align": "center"
-},
+                "type": "buttons",
+                "buttons": botoes,
+                "align": "center"
+            },
             {
                 "type": "buttons",
                 "buttons": [
@@ -349,34 +386,22 @@ def main():
                                 message_id,
                                 menu_super_homem()
                             )
-                        elif dados == "super_homem_14":
-                            file_id = buscar_file_id(
-        "Super-Homem",
-        "Abril",
-        "Super-Homem",
-        "14"
-    )
-
-                            if file_id:
-                                enviar_documento(
-                                    chat_id,
-                                    file_id
-                                )
-                        elif dados == "voltar_abril":
+                        elif dados.startswith("super_homem_"): edicao = dados.replace("super_homem_", "", 1); file_id = buscar_file_id("Super-Homem", "Abril", "Super-Homem", edicao); enviar_documento(chat_id, file_id) if file_id else None
+                         elif dados == "voltar_abril":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
                                 menu_superman_abril()
                             )
 
-                        elif dados == "voltar_superman":
+                         elif dados == "voltar_superman":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
                                 menu_superman()
                             )
 
-                        elif dados == "voltar":
+                         elif dados == "voltar":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
