@@ -55,7 +55,7 @@ def buscar_file_id(personagem, editora, colecao, edicao):
         params=params,
         timeout=30
     )
-
+    print("SUPABASE BUSCA:", resposta.status_code, resposta.text)
     if resposta.ok:
         dados = resposta.json()
 
