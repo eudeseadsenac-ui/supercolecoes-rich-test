@@ -14,7 +14,7 @@ SUPABASE_HEADERS = {
     "Content-Type": "application/json"
 }
 def salvar_quadrinho(personagem, editora, colecao, edicao, file_id, nome_arquivo):
-    url = f"{SUPABASE_URL}/rest/v1/quadrinhos_supercolecoes"
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
     dados = {
         "personagem": personagem,
@@ -39,7 +39,7 @@ def salvar_quadrinho(personagem, editora, colecao, edicao, file_id, nome_arquivo
 
 
 def buscar_file_id(personagem, editora, colecao, edicao):
-    url = f"{SUPABASE_URL}/rest/v1/quadrinhos_supercolecoes"
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
     params = {
         "personagem": f"eq.{personagem}",
