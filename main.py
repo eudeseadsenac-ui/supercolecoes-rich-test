@@ -135,24 +135,16 @@ def menu_super_homem():
                 "text": "Escolha uma edição:"
             },
             {
-                "type": "buttons",
-                "buttons": [
-                    {
-                        "text": "1",
-                        "callback_data": "super_homem_1",
-                        "style": "primary"
-                    },
-                    {
-                        "text": "2",
-                        "callback_data": "super_homem_2"
-                    },
-                    {
-                        "text": "3",
-                        "callback_data": "super_homem_3"
-                    }
-                ],
-                "align": "center"
-            },
+    "type": "buttons",
+    "buttons": [
+        {
+            "text": "14",
+            "callback_data": "super_homem_14",
+            "style": "primary"
+        }
+    ],
+    "align": "center"
+},
             {
                 "type": "buttons",
                 "buttons": [
