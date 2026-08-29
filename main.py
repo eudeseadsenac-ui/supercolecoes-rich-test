@@ -394,14 +394,14 @@ def main():
                                 menu_superman_abril()
                             )
 
-                         elif dados == "voltar_superman":
+                        elif dados == "voltar_superman":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
                                 menu_superman()
                             )
 
-                         elif dados == "voltar":
+                        elif dados == "voltar":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
