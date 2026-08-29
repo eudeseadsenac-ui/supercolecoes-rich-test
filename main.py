@@ -64,6 +64,46 @@ def buscar_file_id(personagem, editora, colecao, edicao):
 
     return None
 def menu_principal():
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
+
+    params = {
+        "select": "personagem"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    personagens = []
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        for item in dados:
+            personagem = str(item["personagem"])
+
+            if personagem not in personagens:
+                personagens.append(personagem)
+
+    personagens.sort()
+
+    botoes = []
+
+    for personagem in personagens:
+
+        if personagem == "Super-Homem":
+            callback = "superman"
+        else:
+            callback = personagem.lower().replace(" ", "_").replace("-", "_")
+
+        botoes.append({
+            "text": personagem,
+            "callback_data": callback
+        })
+
     return {
         "blocks": [
             {
@@ -77,26 +117,11 @@ def menu_principal():
             },
             {
                 "type": "buttons",
-                "buttons": [
-                    {
-                        "text": "Superman",
-                        "callback_data": "superman",
-                        "style": "primary"
-                    },
-                    {
-                        "text": "Batman",
-                        "callback_data": "batman"
-                    },
-                    {
-                        "text": "He-Man",
-                        "callback_data": "heman"
-                    }
-                ],
+                "buttons": botoes,
                 "align": "center"
             }
         ]
     }
-
 
 def menu_superman():
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
