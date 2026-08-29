@@ -183,6 +183,71 @@ def menu_editoras(personagem):
             }
         ]
     }
+def menu_colecoes(personagem, editora):
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
+
+    params = {
+        "personagem": f"eq.{personagem}",
+        "editora": f"eq.{editora}",
+        "select": "colecao"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    colecoes = []
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        for item in dados:
+            colecao = str(item["colecao"])
+
+            if colecao not in colecoes:
+                colecoes.append(colecao)
+
+    colecoes.sort()
+
+    botoes = []
+
+    for colecao in colecoes:
+        botoes.append({
+            "text": colecao,
+            "callback_data": f"colecao|{personagem}|{editora}|{colecao}"
+        })
+
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": f"📚 {personagem.upper()} — {editora.upper()}",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma coleção:"
+            },
+            {
+                "type": "buttons",
+                "buttons": botoes,
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "⬅️ Voltar",
+                        "callback_data": f"personagem|{personagem}"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
 def menu_superman():
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
