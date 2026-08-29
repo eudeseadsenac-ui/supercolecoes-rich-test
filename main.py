@@ -94,10 +94,7 @@ def menu_principal():
 
     for personagem in personagens:
 
-        if personagem == "Super-Homem":
-            callback = "superman"
-        else:
-            callback = personagem.lower().replace(" ", "_").replace("-", "_")
+        callback = f"personagem|{personagem}"
 
         botoes.append({
             "text": personagem,
@@ -122,7 +119,70 @@ def menu_principal():
             }
         ]
     }
+def menu_editoras(personagem):
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
+    params = {
+        "personagem": f"eq.{personagem}",
+        "select": "editora"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    editoras = []
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        for item in dados:
+            editora = str(item["editora"])
+
+            if editora not in editoras:
+                editoras.append(editora)
+
+    editoras.sort()
+
+    botoes = []
+
+    for editora in editoras:
+        botoes.append({
+            "text": editora,
+            "callback_data": f"editora|{personagem}|{editora}"
+        })
+
+    return {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": f"📚 {personagem.upper()}",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha uma editora:"
+            },
+            {
+                "type": "buttons",
+                "buttons": botoes,
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "⬅️ Voltar",
+                        "callback_data": "voltar"
+                    }
+                ],
+                "align": "center"
+            }
+        ]
+    }
 def menu_superman():
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
@@ -446,12 +506,8 @@ def main():
                         chat_id = mensagem_callback["chat"]["id"]
                         message_id = mensagem_callback["message_id"]
 
-                        if dados == "superman":
-                            editar_rich_message(
-                                chat_id,
-                                message_id,
-                                menu_superman()
-                            )
+                        if dados.startswith("personagem|"): personagem = dados.split("|", 1)[1]; editar_rich_message(chat_id, message_id, menu_editoras(personagem))
+                        elif dados == "superman": editar_rich_message(chat_id, message_id, menu_superman())
 
                         elif dados == "superman_abril":
                             editar_rich_message(
