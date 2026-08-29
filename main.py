@@ -326,78 +326,7 @@ def menu_edicoes(personagem, editora, colecao):
             }
         ]
     }
-def menu_super_homem():
-    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
-    params = {
-        "personagem": "eq.Super-Homem",
-        "editora": "eq.Abril",
-        "colecao": "eq.Super-Homem",
-        "select": "edicao"
-    }
-
-    resposta = requests.get(
-        url,
-        headers=SUPABASE_HEADERS,
-        params=params,
-        timeout=30
-    )
-
-    edicoes = []
-
-    if resposta.ok:
-        dados = resposta.json()
-
-        for item in dados:
-            edicao = str(item["edicao"])
-
-            if edicao not in edicoes:
-                edicoes.append(edicao)
-
-    def ordem_edicao(valor):
-        try:
-            return (0, int(valor))
-        except ValueError:
-            return (1, valor)
-
-    edicoes.sort(key=ordem_edicao)
-
-    botoes = []
-
-    for edicao in edicoes:
-        botoes.append({
-            "text": edicao,
-            "callback_data": f"super_homem_{edicao}"
-        })
-
-    return {
-        "blocks": [
-            {
-                "type": "heading",
-                "text": "🦸 SUPER-HOMEM — ABRIL",
-                "size": 2
-            },
-            {
-                "type": "paragraph",
-                "text": "Escolha uma edição:"
-            },
-            {
-                "type": "buttons",
-                "buttons": botoes,
-                "align": "center"
-            },
-            {
-                "type": "buttons",
-                "buttons": [
-                    {
-                        "text": "⬅️ Voltar",
-                        "callback_data": "voltar_abril"
-                    }
-                ],
-                "align": "center"
-            }
-        ]
-    }
 def enviar_rich_message(chat_id):
     payload = {
         "chat_id": chat_id,
