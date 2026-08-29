@@ -507,6 +507,7 @@ def main():
                         message_id = mensagem_callback["message_id"]
 
                         if dados.startswith("personagem|"): personagem = dados.split("|", 1)[1]; editar_rich_message(chat_id, message_id, menu_editoras(personagem))
+                        elif dados.startswith("editora|"): _, personagem, editora = dados.split("|", 2); editar_rich_message(chat_id, message_id, menu_colecoes(personagem, editora))
                         elif dados == "superman": editar_rich_message(chat_id, message_id, menu_superman())
 
                         elif dados == "superman_abril":
