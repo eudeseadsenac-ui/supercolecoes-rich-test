@@ -646,35 +646,10 @@ def main():
                         elif dados.startswith("editora|"): _, personagem, editora = dados.split("|", 2); editar_rich_message(chat_id, message_id, menu_colecoes(personagem, editora))
                         elif dados.startswith("colecao|"): _, personagem, editora, colecao = dados.split("|", 3); editar_rich_message(chat_id, message_id, menu_edicoes(personagem, editora, colecao))
                         elif dados.startswith("edicao|"): _, personagem, editora, colecao, edicao = dados.split("|", 4); file_id = buscar_file_id(personagem, editora, colecao, edicao); enviar_documento(chat_id, file_id) if file_id else print("ARQUIVO NÃO ENCONTRADO:", dados, flush=True)
-                        elif dados == "superman": editar_rich_message(chat_id, message_id, menu_superman())
+                        
 
-                        elif dados == "superman_abril":
-                            editar_rich_message(
-                                chat_id,
-                                message_id,
-                                menu_superman_abril()
-                            )
-
-                        elif dados == "super_homem":
-                            editar_rich_message(
-                                chat_id,
-                                message_id,
-                                menu_super_homem()
-                            )
-                        elif dados.startswith("super_homem_"): edicao = dados.replace("super_homem_", "", 1); file_id = buscar_file_id("Super-Homem", "Abril", "Super-Homem", edicao); enviar_documento(chat_id, file_id) if file_id else None
-                        elif dados == "voltar_abril":
-                            editar_rich_message(
-                                chat_id,
-                                message_id,
-                                menu_superman_abril()
-                            )
-
-                        elif dados == "voltar_superman":
-                            editar_rich_message(
-                                chat_id,
-                                message_id,
-                                menu_superman()
-                            )
+                        
+                            
 
                         elif dados == "voltar":
                             editar_rich_message(
