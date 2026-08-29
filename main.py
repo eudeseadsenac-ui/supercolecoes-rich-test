@@ -387,7 +387,7 @@ def main():
                                 menu_super_homem()
                             )
                         elif dados.startswith("super_homem_"): edicao = dados.replace("super_homem_", "", 1); file_id = buscar_file_id("Super-Homem", "Abril", "Super-Homem", edicao); enviar_documento(chat_id, file_id) if file_id else None
-                         elif dados == "voltar_abril":
+                        elif dados == "voltar_abril":
                             editar_rich_message(
                                 chat_id,
                                 message_id,
