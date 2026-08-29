@@ -4,8 +4,65 @@ import requests
 
 TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-arquivos = {}
 
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+SUPABASE_HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+    "Content-Type": "application/json"
+}
+def salvar_quadrinho(personagem, editora, colecao, edicao, file_id, nome_arquivo):
+    url = f"{SUPABASE_URL}/rest/v1/quadrinhos_supercolecoes"
+
+    dados = {
+        "personagem": personagem,
+        "editora": editora,
+        "colecao": colecao,
+        "edicao": edicao,
+        "file_id": file_id,
+        "nome_arquivo": nome_arquivo
+    }
+
+    headers = SUPABASE_HEADERS.copy()
+    headers["Prefer"] = "resolution=merge-duplicates"
+
+    resposta = requests.post(
+        url,
+        headers=headers,
+        json=dados,
+        timeout=30
+    )
+
+    print("SUPABASE SALVAR:", resposta.status_code, resposta.text)
+
+
+def buscar_file_id(personagem, editora, colecao, edicao):
+    url = f"{SUPABASE_URL}/rest/v1/quadrinhos_supercolecoes"
+
+    params = {
+        "personagem": f"eq.{personagem}",
+        "editora": f"eq.{editora}",
+        "colecao": f"eq.{colecao}",
+        "edicao": f"eq.{edicao}",
+        "select": "file_id"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        if dados:
+            return dados[0]["file_id"]
+
+    return None
 def menu_principal():
     return {
         "blocks": [
@@ -245,11 +302,19 @@ def main():
                         partes = [p.strip() for p in legenda.split("|")]
 
                         if len(partes) == 4:
-                            personagem, editora, colecao, edicao = partes
-                            chave = f"{personagem}|{editora}|{colecao}|{edicao}"
-                            arquivos[chave] = file_id
+                           personagem, editora, colecao, edicao = partes
+                           chave = f"{personagem}|{editora}|{colecao}|{edicao}"
 
-                            print("CATALOGADO:", chave)
+                           salvar_quadrinho(
+        personagem,
+        editora,
+        colecao,
+        edicao,
+        file_id,
+        nome_arquivo
+    )
+
+                           print("CATALOGADO:", chave)
                 callback = update.get("callback_query")
 
                 if callback:
@@ -284,8 +349,12 @@ def main():
                                 menu_super_homem()
                             )
                         elif dados == "super_homem_14":
-                            chave = "Super-Homem|Abril|Super-Homem|14"
-                            file_id = arquivos.get(chave)
+                            file_id = buscar_file_id(
+        "Super-Homem",
+        "Abril",
+        "Super-Homem",
+        "14"
+    )
 
                             if file_id:
                                 enviar_documento(
