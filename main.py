@@ -55,7 +55,7 @@ def buscar_file_id(personagem, editora, colecao, edicao):
         params=params,
         timeout=30
     )
-    print("SUPABASE BUSCA:", resposta.status_code, resposta.text)
+    print("SUPABASE BUSCA:", resposta.status_code, resposta.text, flush=True)
     if resposta.ok:
         dados = resposta.json()
 
@@ -320,6 +320,7 @@ def main():
                 if callback:
                     callback_id = callback["id"]
                     dados = callback.get("data")
+                    print("CALLBACK RECEBIDO:", dados, flush=True)
                     mensagem_callback = callback.get("message")
 
                     responder_callback(callback_id)
