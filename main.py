@@ -291,7 +291,15 @@ def main():
                                 message_id,
                                 menu_super_homem()
                             )
+                        elif dados == "super_homem_14":
+                            chave = "Super-Homem|Abril|Super-Homem|14"
+                            file_id = arquivos.get(chave)
 
+                            if file_id:
+                                enviar_documento(
+                                    chat_id,
+                                    file_id
+                                )
                         elif dados == "voltar_abril":
                             editar_rich_message(
                                 chat_id,
