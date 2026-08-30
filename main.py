@@ -290,7 +290,7 @@ def menu_edicoes(personagem, editora, colecao):
 
     edicoes.sort(key=ordem_edicao)
 
-        botoes = []
+    botoes = []
 
     for edicao in edicoes:
         botoes.append({
