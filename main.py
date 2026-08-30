@@ -290,12 +290,21 @@ def menu_edicoes(personagem, editora, colecao):
 
     edicoes.sort(key=ordem_edicao)
 
-    botoes = []
+        botoes = []
 
     for edicao in edicoes:
         botoes.append({
             "text": edicao,
             "callback_data": f"edicao|{personagem}|{editora}|{colecao}|{edicao}"
+        })
+
+    blocos_botoes = []
+
+    for i in range(0, len(botoes), 6):
+        blocos_botoes.append({
+            "type": "buttons",
+            "buttons": botoes[i:i + 6],
+            "align": "center"
         })
 
     return {
@@ -309,12 +318,7 @@ def menu_edicoes(personagem, editora, colecao):
                 "type": "paragraph",
                 "text": "Escolha uma edição:"
             },
-            {
-                "type": "buttons",
-                "buttons": botoes,
-                "align": "center"
-            },
-            {
+            *blocos_botoes,
                 "type": "buttons",
                 "buttons": [
                     {
