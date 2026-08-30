@@ -188,7 +188,7 @@ def menu_colecoes(personagem, editora):
 
     params = {
         "personagem": f"eq.{personagem}",
-        "editora": f"eq.{editora}",
+        "editora": f"ilike.{editora}",
         "select": "colecao"
     }
 
