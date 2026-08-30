@@ -4,7 +4,7 @@ import requests
 
 TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
-
+CANAL_PUBLICO = "@supercolecoes"
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
@@ -340,7 +340,19 @@ def enviar_rich_message(chat_id):
     )
 
     print(resposta.text)
+def publicar_menu_no_canal():
+    payload = {
+        "chat_id": CANAL_PUBLICO,
+        "rich_message": menu_principal()
+    }
 
+    resposta = requests.post(
+        f"{BASE_URL}/sendRichMessage",
+        json=payload,
+        timeout=30
+    )
+
+    print("PUBLICAR CANAL:", resposta.status_code, resposta.text, flush=True)
 
 def editar_rich_message(chat_id, message_id, rich_message):
     payload = {
@@ -395,10 +407,17 @@ def main():
 
                 mensagem = update.get("message")
 
-                if mensagem and mensagem.get("text") == "/teste":
-                    chat_id = mensagem["chat"]["id"]
-                    enviar_rich_message(chat_id)
-                channel_post = update.get("channel_post")
+            if mensagem and mensagem.get("text") == "/teste":
+                chat_id = mensagem["chat"]["id"]
+                enviar_rich_message(chat_id)
+
+            if mensagem and mensagem.get("text") == "/publicar":
+                chat_id = mensagem["chat"]["id"]
+
+                if chat_id == 735825670:
+                    publicar_menu_no_canal()
+
+            channel_post = update.get("channel_post")
 
                 if channel_post:
                     documento = channel_post.get("document")
