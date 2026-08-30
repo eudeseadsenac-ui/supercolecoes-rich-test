@@ -340,8 +340,7 @@ def enviar_rich_message(chat_id):
     )
 
     print(resposta.text)
-    def enviar_menu_editora(chat_id, editora):
-    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
+    
 
 def enviar_menu_editora(chat_id, editora):
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
