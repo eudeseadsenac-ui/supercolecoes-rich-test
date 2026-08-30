@@ -536,13 +536,17 @@ def publicar_catalogo_editoras():
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=bloch"
                     },
                     {
-                        "text": "📙 RGE / Globo",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=rge_globo"
+                        "text": "📙 RGE",
+                        "url": "https://t.me/Supercolecoesdigitais_bot?start=rge"
+                    },
+                    {
+                        "text": "📘 Globo",
+                        "url": "https://t.me/Supercolecoesdigitais_bot?start=globo"
                     }
-                ],
+                 ],
                 "align": "center"
-            },
-            {
+             },
+             {
                 "type": "buttons",
                 "buttons": [
                     {
@@ -555,8 +559,8 @@ def publicar_catalogo_editoras():
                     }
                 ],
                 "align": "center"
-            },
-            {
+              },
+              {
                 "type": "buttons",
                 "buttons": [
                     {
