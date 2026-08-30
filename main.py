@@ -375,12 +375,21 @@ def enviar_menu_editora(chat_id, editora):
 
     personagens.sort()
 
-    botoes = []
+        botoes = []
 
     for personagem in personagens:
         botoes.append({
             "text": personagem,
             "callback_data": f"editora|{personagem}|{editora}"
+        })
+
+    blocos_botoes = []
+
+    for i in range(0, len(botoes), 2):
+        blocos_botoes.append({
+            "type": "buttons",
+            "buttons": botoes[i:i + 2],
+            "align": "center"
         })
 
     rich_message = {
@@ -392,13 +401,9 @@ def enviar_menu_editora(chat_id, editora):
             },
             {
                 "type": "paragraph",
-                "text": "Escolha um personagem ou coleção:"
+                "text": "Escolha um título:"
             },
-            {
-                "type": "buttons",
-                "buttons": botoes,
-                "align": "center"
-            }
+            *blocos_botoes
         ]
     }
 
