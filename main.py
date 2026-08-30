@@ -447,9 +447,9 @@ def main():
     )
 
                            print("CATALOGADO:", chave)
-                callback = update.get("callback_query")
+            callback = update.get("callback_query")
 
-                if callback:
+            if callback:
                     callback_id = callback["id"]
                     dados = callback.get("data")
                     print("CALLBACK RECEBIDO:", dados, flush=True)
