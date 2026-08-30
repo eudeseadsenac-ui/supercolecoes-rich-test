@@ -375,7 +375,7 @@ def enviar_menu_editora(chat_id, editora):
 
     personagens.sort()
 
-        botoes = []
+    botoes = []
 
     for personagem in personagens:
         botoes.append({
