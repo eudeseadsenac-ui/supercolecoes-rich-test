@@ -13,6 +13,38 @@ SUPABASE_HEADERS = {
     "Authorization": f"Bearer {SUPABASE_KEY}",
     "Content-Type": "application/json"
 }
+def normalizar_editora(editora):
+    valor = editora.strip().lower()
+
+    mapa = {
+        "abril": "Abril",
+        "editora abril": "Abril",
+
+        "ebal": "EBAL",
+        "editora ebal": "EBAL",
+
+        "rge": "RGE / Globo",
+        "editora rge": "RGE / Globo",
+        "rge / globo": "RGE / Globo",
+        "rge/globo": "RGE / Globo",
+        "globo": "RGE / Globo",
+        "editora globo": "RGE / Globo",
+
+        "bloch": "Bloch",
+        "editora bloch": "Bloch",
+        "bloch editores": "Bloch",
+
+        "vecchi": "Vecchi",
+        "editora vecchi": "Vecchi",
+
+        "panini": "Panini",
+        "panini brasil": "Panini",
+
+        "mythos": "Mythos",
+        "mythos editora": "Mythos",
+    }
+
+    return mapa.get(valor, editora.strip())
 def salvar_quadrinho(personagem, editora, colecao, edicao, file_id, nome_arquivo):
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
@@ -639,6 +671,7 @@ def main():
 
                         if len(partes) == 4:
                             personagem, editora, colecao, edicao = partes
+                            editora = normalizar_editora(editora)
                             chave = f"{personagem}|{editora}|{colecao}|{edicao}"
 
                             salvar_quadrinho(
