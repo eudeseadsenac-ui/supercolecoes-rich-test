@@ -23,13 +23,11 @@ def normalizar_editora(editora):
         "ebal": "EBAL",
         "editora ebal": "EBAL",
 
-        "rge": "RGE / Globo",
-        "editora rge": "RGE / Globo",
-        "rge / globo": "RGE / Globo",
-        "rge/globo": "RGE / Globo",
-        "globo": "RGE / Globo",
-        "editora globo": "RGE / Globo",
+        "rge": "RGE",
+"editora rge": "RGE",
 
+"globo": "Globo",
+"editora globo": "Globo",
         "bloch": "Bloch",
         "editora bloch": "Bloch",
         "bloch editores": "Bloch",
