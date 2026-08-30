@@ -557,6 +557,9 @@ def main():
 
                     if chat_id == 735825670:
                         publicar_catalogo_editoras()
+                if mensagem and mensagem.get("text") == "/start abril":
+                    chat_id = mensagem["chat"]["id"]
+                    enviar_menu_editora(chat_id, "Abril")
                 channel_post = update.get("channel_post")
 
                 if channel_post:
