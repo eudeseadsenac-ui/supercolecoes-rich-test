@@ -340,6 +340,73 @@ def enviar_rich_message(chat_id):
     )
 
     print(resposta.text)
+    def enviar_menu_editora(chat_id, editora):
+    url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
+
+    params = {
+        "editora": f"eq.{editora}",
+        "select": "personagem"
+    }
+
+    resposta = requests.get(
+        url,
+        headers=SUPABASE_HEADERS,
+        params=params,
+        timeout=30
+    )
+
+    personagens = []
+
+    if resposta.ok:
+        dados = resposta.json()
+
+        for item in dados:
+            personagem = str(item["personagem"])
+
+            if personagem not in personagens:
+                personagens.append(personagem)
+
+    personagens.sort()
+
+    botoes = []
+
+    for personagem in personagens:
+        botoes.append({
+            "text": personagem,
+            "callback_data": f"editora|{personagem}|{editora}"
+        })
+
+    rich_message = {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": f"📚 {editora.upper()}",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Escolha um personagem ou coleção:"
+            },
+            {
+                "type": "buttons",
+                "buttons": botoes,
+                "align": "center"
+            }
+        ]
+    }
+
+    payload = {
+        "chat_id": chat_id,
+        "rich_message": rich_message
+    }
+
+    resposta = requests.post(
+        f"{BASE_URL}/sendRichMessage",
+        json=payload,
+        timeout=30
+    )
+
+    print("MENU EDITORA:", resposta.status_code, resposta.text, flush=True)
 def publicar_menu_no_canal():
     payload = {
         "chat_id": CANAL_PUBLICO,
