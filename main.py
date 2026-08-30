@@ -353,7 +353,73 @@ def publicar_menu_no_canal():
     )
 
     print("PUBLICAR CANAL:", resposta.status_code, resposta.text, flush=True)
+def publicar_catalogo_editoras():
+    rich_message = {
+        "blocks": [
+            {
+                "type": "heading",
+                "text": "📚 CATÁLOGO POR EDITORAS",
+                "size": 2
+            },
+            {
+                "type": "paragraph",
+                "text": "Organização das coleções e publicações por algumas das principais editoras de quadrinhos que marcaram a história do mercado brasileiro."
+            },
+            {
+                "type": "paragraph",
+                "text": "📕 EDITORA ABRIL\nUma das maiores editoras de quadrinhos do Brasil, responsável por décadas de publicações Disney, Marvel, DC, Star Wars, Turma da Mônica, Conan e muitos outros títulos."
+            },
+            {
+                "type": "paragraph",
+                "text": "📗 EBAL — EDITORA BRASIL-AMÉRICA\nPioneira na publicação de quadrinhos no Brasil. Publicou personagens e séries da DC Comics, Marvel, Tarzan, Flash Gordon, Príncipe Valente, Disney e inúmeros clássicos de aventura e super-heróis."
+            },
+            {
+                "type": "paragraph",
+                "text": "📘 BLOCH EDITORES\nFicou conhecida pelas revistas dos super-heróis Marvel nos anos 1970 e também por personagens como Zé Colmeia, Flintstones, Popeye, Jetsons e outros clássicos da Hanna-Barbera."
+            },
+            {
+                "type": "paragraph",
+                "text": "📙 RGE / EDITORA GLOBO\nA RGE, posteriormente incorporada à Editora Globo, publicou diversos personagens e coleções importantes, entre eles Fantasma, Mandrake, Recruta Zero e muitos outros."
+            },
+            {
+                "type": "paragraph",
+                "text": "📒 VECCHI / VEC\nPublicou quadrinhos de terror, faroeste e aventura, incluindo títulos como Kripta, Spektro, Sobrenatural e outras publicações marcantes."
+            },
+            {
+                "type": "paragraph",
+                "text": "📓 PANINI BRASIL\nUma das principais editoras atuais de quadrinhos no país. Publica Marvel, DC, Star Wars, Turma da Mônica, mangás e diversos outros títulos nacionais e internacionais."
+            },
+            {
+                "type": "paragraph",
+                "text": "📔 MYTHOS EDITORA\nConhecida principalmente pelas publicações de Tex, Zagor, Dylan Dog, Dampyr e outras séries de aventura, terror e faroeste."
+            },
+            {
+                "type": "paragraph",
+                "text": "📚 CONRAD / DEVIR / HQM\nEditoras responsáveis por importantes lançamentos de mangás, graphic novels, quadrinhos alternativos e obras independentes no mercado brasileiro."
+            },
+            {
+                "type": "paragraph",
+                "text": "📖 NONA ARTE / PIPOCA & NANQUIM\nEditoras voltadas para quadrinhos autorais, independentes, clássicos nacionais e internacionais e edições especiais."
+            },
+            {
+                "type": "paragraph",
+                "text": "📄 EDITORAS EXTINTAS OU RARAS\nEspaço dedicado a editoras como Taika, Graúna e outras que marcaram diferentes períodos da história dos quadrinhos no Brasil."
+            }
+        ]
+    }
 
+    payload = {
+        "chat_id": CANAL_PUBLICO,
+        "rich_message": rich_message
+    }
+
+    resposta = requests.post(
+        f"{BASE_URL}/sendRichMessage",
+        json=payload,
+        timeout=30
+    )
+
+    print("CATALOGO EDITORAS:", resposta.status_code, resposta.text, flush=True)
 def editar_rich_message(chat_id, message_id, rich_message):
     payload = {
         "chat_id": chat_id,
