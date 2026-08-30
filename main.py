@@ -473,7 +473,17 @@ def publicar_catalogo_editoras():
             {
                 "type": "paragraph",
                 "text": "📄 EDITORAS EXTINTAS OU RARAS\nEspaço dedicado a editoras como Taika, Graúna e outras que marcaram diferentes períodos da história dos quadrinhos no Brasil."
-            }
+            },
+                        {
+                "type": "buttons",
+                "buttons": [
+                    {
+                        "text": "📕 Abril",
+                        "url": "https://t.me/superhq_bot?start=abril"
+                    }
+                ],
+                "align": "center"
+                        }
         ]
     }
 
