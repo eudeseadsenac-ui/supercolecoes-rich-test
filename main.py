@@ -483,7 +483,11 @@ def main():
 
                     if chat_id == 735825670:
                         publicar_menu_no_canal()
+                if mensagem and mensagem.get("text") == "/catalogo":
+                    chat_id = mensagem["chat"]["id"]
 
+                    if chat_id == 735825670:
+                        publicar_catalogo_editoras()
                 channel_post = update.get("channel_post")
 
                 if channel_post:
