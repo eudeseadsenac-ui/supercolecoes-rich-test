@@ -43,7 +43,7 @@ def buscar_file_id(personagem, editora, colecao, edicao):
 
     params = {
         "personagem": f"eq.{personagem}",
-        "editora": f"eq.{editora}",
+        "editora": f"ilike.{editora}",
         "colecao": f"eq.{colecao}",
         "edicao": f"eq.{edicao}",
         "select": "file_id"
@@ -259,7 +259,7 @@ def menu_edicoes(personagem, editora, colecao):
 
     params = {
         "personagem": f"eq.{personagem}",
-        "editora": f"eq.{editora}",
+        "editora": f"ilike.{editora}",
         "colecao": f"eq.{colecao}",
         "select": "edicao"
     }
