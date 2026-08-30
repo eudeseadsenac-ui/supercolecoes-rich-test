@@ -419,7 +419,7 @@ def main():
 
             channel_post = update.get("channel_post")
 
-                if channel_post:
+            if channel_post:
                     documento = channel_post.get("document")
 
                     if documento:
