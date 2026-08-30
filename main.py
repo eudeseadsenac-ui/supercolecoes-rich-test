@@ -346,7 +346,7 @@ def enviar_menu_editora(chat_id, editora):
     url = f"{SUPABASE_URL}/quadrinhos_supercolecoes"
 
     params = {
-        "editora": f"eq.{editora}",
+        "editora": f"ilike.{editora}",
         "select": "personagem"
     }
 
