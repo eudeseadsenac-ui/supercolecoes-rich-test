@@ -454,6 +454,7 @@ def responder_callback(callback_query_id):
     )
 
 
+
 def main():
     offset = 0
 
@@ -473,19 +474,19 @@ def main():
 
                 mensagem = update.get("message")
 
-            if mensagem and mensagem.get("text") == "/teste":
-                chat_id = mensagem["chat"]["id"]
-                enviar_rich_message(chat_id)
+                if mensagem and mensagem.get("text") == "/teste":
+                    chat_id = mensagem["chat"]["id"]
+                    enviar_rich_message(chat_id)
 
-            if mensagem and mensagem.get("text") == "/publicar":
-                chat_id = mensagem["chat"]["id"]
+                if mensagem and mensagem.get("text") == "/publicar":
+                    chat_id = mensagem["chat"]["id"]
 
-                if chat_id == 735825670:
-                    publicar_menu_no_canal()
+                    if chat_id == 735825670:
+                        publicar_menu_no_canal()
 
-            channel_post = update.get("channel_post")
+                channel_post = update.get("channel_post")
 
-            if channel_post:
+                if channel_post:
                     documento = channel_post.get("document")
 
                     if documento:
@@ -497,25 +498,27 @@ def main():
                         print("Arquivo:", nome_arquivo)
                         print("Legenda:", legenda)
                         print("FILE_ID:", file_id)
+
                         partes = [p.strip() for p in legenda.split("|")]
 
                         if len(partes) == 4:
-                           personagem, editora, colecao, edicao = partes
-                           chave = f"{personagem}|{editora}|{colecao}|{edicao}"
+                            personagem, editora, colecao, edicao = partes
+                            chave = f"{personagem}|{editora}|{colecao}|{edicao}"
 
-                           salvar_quadrinho(
-        personagem,
-        editora,
-        colecao,
-        edicao,
-        file_id,
-        nome_arquivo
-    )
+                            salvar_quadrinho(
+                                personagem,
+                                editora,
+                                colecao,
+                                edicao,
+                                file_id,
+                                nome_arquivo
+                            )
 
-                           print("CATALOGADO:", chave)
-            callback = update.get("callback_query")
+                            print("CATALOGADO:", chave)
 
-            if callback:
+                callback = update.get("callback_query")
+
+                if callback:
                     callback_id = callback["id"]
                     dados = callback.get("data")
                     print("CALLBACK RECEBIDO:", dados, flush=True)
@@ -527,14 +530,26 @@ def main():
                         chat_id = mensagem_callback["chat"]["id"]
                         message_id = mensagem_callback["message_id"]
 
-                        if dados.startswith("personagem|"): personagem = dados.split("|", 1)[1]; editar_rich_message(chat_id, message_id, menu_editoras(personagem))
-                        elif dados.startswith("editora|"): _, personagem, editora = dados.split("|", 2); editar_rich_message(chat_id, message_id, menu_colecoes(personagem, editora))
-                        elif dados.startswith("colecao|"): _, personagem, editora, colecao = dados.split("|", 3); editar_rich_message(chat_id, message_id, menu_edicoes(personagem, editora, colecao))
-                        elif dados.startswith("edicao|"): _, personagem, editora, colecao, edicao = dados.split("|", 4); file_id = buscar_file_id(personagem, editora, colecao, edicao); enviar_documento(chat_id, file_id) if file_id else print("ARQUIVO NÃO ENCONTRADO:", dados, flush=True)
-                        
+                        if dados.startswith("personagem|"):
+                            personagem = dados.split("|", 1)[1]
+                            editar_rich_message(chat_id, message_id, menu_editoras(personagem))
 
-                        
-                            
+                        elif dados.startswith("editora|"):
+                            _, personagem, editora = dados.split("|", 2)
+                            editar_rich_message(chat_id, message_id, menu_colecoes(personagem, editora))
+
+                        elif dados.startswith("colecao|"):
+                            _, personagem, editora, colecao = dados.split("|", 3)
+                            editar_rich_message(chat_id, message_id, menu_edicoes(personagem, editora, colecao))
+
+                        elif dados.startswith("edicao|"):
+                            _, personagem, editora, colecao, edicao = dados.split("|", 4)
+                            file_id = buscar_file_id(personagem, editora, colecao, edicao)
+
+                            if file_id:
+                                enviar_documento(chat_id, file_id)
+                            else:
+                                print("ARQUIVO NÃO ENCONTRADO:", dados, flush=True)
 
                         elif dados == "voltar":
                             editar_rich_message(
