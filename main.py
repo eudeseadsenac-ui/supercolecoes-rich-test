@@ -479,7 +479,7 @@ def publicar_catalogo_editoras():
                 "buttons": [
                     {
                         "text": "📕 Abril",
-                        "url": "https://t.me/superhq_bot?start=abril"
+                        "url": "https://t.me/Supercolecoesdigitais_bot?start=abril"
                     }
                 ],
                 "align": "center"
