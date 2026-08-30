@@ -319,6 +319,7 @@ def menu_edicoes(personagem, editora, colecao):
                 "text": "Escolha uma edição:"
             },
             *blocos_botoes,
+            {
                 "type": "buttons",
                 "buttons": [
                     {
