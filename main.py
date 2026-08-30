@@ -474,7 +474,7 @@ def publicar_catalogo_editoras():
                 "type": "paragraph",
                 "text": "📄 EDITORAS EXTINTAS OU RARAS\nEspaço dedicado a editoras como Taika, Graúna e outras que marcaram diferentes períodos da história dos quadrinhos no Brasil."
             },
-                                    {
+                                                {
                 "type": "buttons",
                 "buttons": [
                     {
@@ -484,7 +484,13 @@ def publicar_catalogo_editoras():
                     {
                         "text": "📗 EBAL",
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=ebal"
-                    },
+                    }
+                ],
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
                     {
                         "text": "📘 Bloch",
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=bloch"
@@ -492,7 +498,13 @@ def publicar_catalogo_editoras():
                     {
                         "text": "📙 RGE / Globo",
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=rge_globo"
-                    },
+                    }
+                ],
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
                     {
                         "text": "📒 Vecchi",
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=vecchi"
@@ -500,7 +512,13 @@ def publicar_catalogo_editoras():
                     {
                         "text": "📓 Panini",
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=panini"
-                    },
+                    }
+                ],
+                "align": "center"
+            },
+            {
+                "type": "buttons",
+                "buttons": [
                     {
                         "text": "📔 Mythos",
                         "url": "https://t.me/Supercolecoesdigitais_bot?start=mythos"
