@@ -653,6 +653,9 @@ def main():
 
                     if chat_id == 735825670:
                         publicar_catalogo_editoras()
+                if mensagem and mensagem.get("text") == "/start":
+                    chat_id = mensagem["chat"]["id"]
+                    enviar_rich_message(chat_id)
                 if mensagem and mensagem.get("text", "").startswith("/start "): parametro = mensagem.get("text", "").split(" ", 1)[1].strip().lower(); editoras_start = {"abril": "Abril", "ebal": "EBAL", "bloch": "Bloch", "rge": "RGE", "globo": "Globo", "vecchi": "Vecchi", "panini": "Panini", "mythos": "Mythos"}; editora = editoras_start.get(parametro); enviar_menu_editora(mensagem["chat"]["id"], editora) if editora else None
                 channel_post = update.get("channel_post")
 
