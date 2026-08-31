@@ -120,15 +120,23 @@ def menu_principal():
 
     personagens.sort()
 
-    botoes = []
+        botoes = []
 
     for personagem in personagens:
-
         callback = f"personagem|{personagem}"
 
         botoes.append({
             "text": personagem,
             "callback_data": callback
+        })
+
+    blocos_botoes = []
+
+    for i in range(0, len(botoes), 2):
+        blocos_botoes.append({
+            "type": "buttons",
+            "buttons": botoes[i:i + 2],
+            "align": "center"
         })
 
     return {
@@ -142,11 +150,7 @@ def menu_principal():
                 "type": "paragraph",
                 "text": "Escolha uma coleção:"
             },
-            {
-                "type": "buttons",
-                "buttons": botoes,
-                "align": "center"
-            }
+            *blocos_botoes
         ]
     }
 def menu_editoras(personagem):
