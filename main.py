@@ -120,7 +120,7 @@ def menu_principal():
 
     personagens.sort()
 
-        botoes = []
+    botoes = []
 
     for personagem in personagens:
         callback = f"personagem|{personagem}"
