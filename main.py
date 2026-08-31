@@ -528,48 +528,48 @@ def publicar_catalogo_editoras():
                 ],
                 "align": "center"
             },
-            {
-                "type": "buttons",
-                "buttons": [
                     {
-                        "text": "📘 Bloch",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=bloch"
-                    },
-                    {
-                        "text": "📙 RGE",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=rge"
-                    },
-                    {
-                        "text": "📘 Globo",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=globo"
-                    }
-                 ],
-                "align": "center"
-             },
-             {
-                "type": "buttons",
-                "buttons": [
-                    {
-                        "text": "📒 Vecchi",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=vecchi"
-                    },
-                    {
-                        "text": "📓 Panini",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=panini"
-                    }
-                ],
-                "align": "center"
-              },
-              {
-                "type": "buttons",
-                "buttons": [
-                    {
-                        "text": "📔 Mythos",
-                        "url": "https://t.me/Supercolecoesdigitais_bot?start=mythos"
-                    }
-                ],
-                "align": "center"
-            }
+            "type": "buttons",
+            "buttons": [
+                {
+                    "text": "📘 Bloch",
+                    "url": "https://t.me/Supercolecoesdigitais_bot?start=bloch"
+                },
+                {
+                    "text": "📙 RGE",
+                    "url": "https://t.me/Supercolecoesdigitais_bot?start=rge"
+                }
+            ],
+            "align": "center"
+        },
+        {
+            "type": "buttons",
+            "buttons": [
+                {
+                    "text": "📘 Globo",
+                    "url": "https://t.me/Supercolecoesdigitais_bot?start=globo"
+                },
+                {
+                    "text": "📒 Vecchi",
+                    "url": "https://t.me/Supercolecoesdigitais_bot?start=vecchi"
+                }
+            ],
+            "align": "center"
+        },
+        {
+            "type": "buttons",
+            "buttons": [
+                {
+                    "text": "📓 Panini",
+                    "url": "https://t.me/Supercolecoesdigitais_bot?start=panini"
+                },
+                {
+                    "text": "📁 Mythos",
+                    "url": "https://t.me/Supercolecoesdigitais_bot?start=mythos"
+                }
+            ],
+            "align": "center"
+        }
         ]
     }
 
